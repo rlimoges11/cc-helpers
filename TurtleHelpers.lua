@@ -180,14 +180,13 @@ function IsLowOnFuel()
 
         printError(
             "\n\n" .. label .. " is running low on fuel. all operations have been stopped until fuel is provided on the chest above.\n")
-        while true do
+        while toint(turtle.getFuelLevel()) < HIGH_FUEL_THRESHOLD do
             if getFuel() then
                 break
             end
         end
 		
-		print(label .. " is fully refueled.")
-		
+		print(label .. " is sufficiently refueled.")
 		consider()
 	else 
 		printFuel()
@@ -199,7 +198,7 @@ end
 
 function initTurtle() 
 	print ("LOW_FUEL_THRESHOLD: " .. LOW_FUEL_THRESHOLD .. ".")
-	print ("HIGH_FUEL_THRESHOLD: " .. LOW_FUEL_THRESHOLD .. ".")
+	print ("HIGH_FUEL_THRESHOLD: " .. HIGH_FUEL_THRESHOLD .. ".")
 	print ("MAX_FUEL: " .. MAX_FUEL .. ".")
 	print ("HARVEST_ROW_LENGTH: " .. HARVEST_ROW_LENGTH .. ".")
 	print ("HARVEST_MAX_AGE: " .. HARVEST_MAX_AGE .. ".")
