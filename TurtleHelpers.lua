@@ -10,7 +10,7 @@ end
 HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
 if(HIGH_FUEL_THRESHOLD == nil) then
 	settings.set ("HIGH_FUEL_THRESHOLD", "30000")
-	LOW_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
+	HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
 end
 
 if(MAX_FUEL == nil) then
