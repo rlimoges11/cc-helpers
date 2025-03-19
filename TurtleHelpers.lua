@@ -129,7 +129,8 @@ function IsLowOnFuel()
 
         printError(
             "\n\n" .. label .. " is running low on fuel. all operations have been stopped until fuel is provided on the chest above.\n")
-        while toint(turtle.getFuelLevel()) < HIGH_FUEL_THRESHOLD do
+        while (turtle.getFuelLevel() <= HIGH_FUEL_THRESHOLD) do
+			printFuel()
             if getFuel() then
                 break
             end
