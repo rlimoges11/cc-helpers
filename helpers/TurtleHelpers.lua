@@ -6,6 +6,13 @@ if(LOW_FUEL_THRESHOLD == nil) then
 	settings.set ("LOW_FUEL_THRESHOLD", "20000")
 	LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
 end
+
+HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
+if(HIGH_FUEL_THRESHOLD == nil) then
+	settings.set ("HIGH_FUEL_THRESHOLD", "30000")
+	LOW_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
+end
+
 if(MAX_FUEL == nil) then
 	settings.set ("MAX_FUEL", "100000")
 	MAX_FUEL = settings.get("MAX_FUEL")
@@ -194,6 +201,7 @@ end
 
 function initTurtle() 
 	print ("LOW_FUEL_THRESHOLD: " .. LOW_FUEL_THRESHOLD .. ".")
+	print ("HIGH_FUEL_THRESHOLD: " .. LOW_FUEL_THRESHOLD .. ".")
 	print ("MAX_FUEL: " .. MAX_FUEL .. ".")
 	print ("HARVEST_ROW_LENGTH: " .. HARVEST_ROW_LENGTH .. ".")
 	print ("HARVEST_MAX_AGE: " .. HARVEST_MAX_AGE .. ".")
