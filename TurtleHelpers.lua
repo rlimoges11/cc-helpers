@@ -38,11 +38,12 @@ end
 
 local hasBlock
 local originalBlockData
+local maxAge = HARVEST_MAX_AGE
 
 function consider()
 	inspectMode()
 	
-	local maxAge = HARVEST_MAX_AGE
+	
 	
 	if(mode == "bottom") then
 		if hasBlock and originalBlockData.state.age ~= nil then
@@ -91,7 +92,6 @@ function harvestRow()
 		consider()
 	end
 end
-
 
 function turnAroundRight()
 	turtle.turnRight()
@@ -171,12 +171,10 @@ function IsLowOnFuel()
 				turtle.refuel(1)
 				os.sleep(1)
 				turtle.dropDown()
-				
-
             end
 			
 			printFuel()
-			
+		
             return false
         end
 
