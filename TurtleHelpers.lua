@@ -1,9 +1,6 @@
 label = os.computerLabel()
 print(label .. " online")
 
-local hasBlock
-local originalBlockData
-
 -- Get settings
 local LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
 local HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
@@ -13,47 +10,27 @@ local HARVEST_MODE = settings.get("HARVEST_MODE")
 local MAX_FUEL = settings.get("MAX_FUEL")
 
 function consider()
-	inspectMode()
-	
 	if(HARVEST_MODE == "bottom") then
-		if hasBlock and originalBlockData.state.age ~= nil then
-			if HARVEST_MAX_AGE ~= nil then
-				if originalBlockData.state.age >= HARVEST_MAX_AGE then
-					digMode()
-				end
-			else
-				digMode()
+		local has_block, originalBlockData = turtle.inspectDown()
+		if has_block and originalBlockData.state.age ~= nil then
+			print(tostring(originalBlockData.state.age))
+			if originalBlockData.state.age >= HARVEST_MAX_AGE then
+				-- Harvest
+				turtle.digDown()
 			end
-			
 		else
-			digMode()
-			
+			turtle.digDown()
 		end
 		
 		turtle.placeDown()
 	else
-		digMode()
+		-- Front
+		turtle.dig()
 	end
-	
 	
 	turtle.forward()
 end
 
-function inspectMode()
-	if(HARVEST_MODE == "bottom") then
-		has_block, originalBlockData = turtle.inspectDown()
-	else 
-		--has_block, originalBlockData = turtle.inspect()
-	end
-end
-
-function digMode()
-	if(HARVEST_MODE == "bottom") then
-		turtle.digDown()
-	else
-		turtle.dig()
-	end
-end
 
 function harvestRow() 
 	local i = 0
