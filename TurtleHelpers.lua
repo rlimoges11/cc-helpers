@@ -116,13 +116,18 @@ function IsLowOnFuel()
 
         local function getFuel()
             for i = 1, container.size(), 1 do
-                turtle.suckUp(1)
-				turtle.refuel(1)
-				os.sleep(1)
-				turtle.dropDown()
+				if(turtle.getFuelLevel() <= HIGH_FUEL_THRESHOLD) then
+					turtle.suckUp(1)
+					turtle.refuel(1)
+					os.sleep(1)
+
+					turtle.dropDown()
+					os.sleep(1)
+					if(i % 5 == 0) then
+						printFuel()	
+					end
+				end
             end
-			
-			printFuel()
 		
             return false
         end
