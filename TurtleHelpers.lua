@@ -13,7 +13,6 @@ function consider()
 	if(HARVEST_MODE == "bottom") then
 		local has_block, originalBlockData = turtle.inspectDown()
 		if has_block and originalBlockData.state.age ~= nil then
-			print(tostring(originalBlockData.state.age))
 			if originalBlockData.state.age >= HARVEST_MAX_AGE then
 				-- Harvest
 				turtle.digDown()
