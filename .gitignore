@@ -1,0 +1,20 @@
+# Ignore .settings file
+.settings
+
+# Ignore Sublime Text project files
+*.sublime-project
+*.sublime-workspace
+
+# Ignore common Lua project fodder
+*.luac
+*.o
+*.so
+*.a
+*.out
+*.swp
+*.log
+*.tmp
+*.bak
+*.pid
+*.pid.lock
+*.DS_Store
