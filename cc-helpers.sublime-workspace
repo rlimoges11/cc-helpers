@@ -1,0 +1,356 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"total",
+				"totalPlayers"
+			],
+			[
+				"color",
+				"colorHex"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"cli",
+				"clickableHexagons"
+			],
+			[
+				"col",
+				"colorHex"
+			],
+			[
+				"ti",
+				"tileGroup"
+			],
+			[
+				"tile",
+				"tileType"
+			],
+			[
+				"ro",
+				"rotation"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"tabl",
+				"table-cell"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"max-",
+				"max-height"
+			],
+			[
+				"inl",
+				"inline-table"
+			],
+			[
+				"borde",
+				"border"
+			],
+			[
+				"inlin",
+				"inline-grid"
+			],
+			[
+				"pred",
+				"predefinedTiles"
+			],
+			[
+				"wave",
+				"wavefront"
+			],
+			[
+				"co",
+				"connecters"
+			],
+			[
+				"add",
+				"addColor"
+			],
+			[
+				"con",
+				"contains"
+			],
+			[
+				"cent",
+				"content"
+			],
+			[
+				"upda",
+				"updateColors"
+			],
+			[
+				"flip-card",
+				"flip-card-inner"
+			],
+			[
+				"ba",
+				"background"
+			],
+			[
+				"grid",
+				"grid-area"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"tex",
+				"text-shadow"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"tra",
+				"transition"
+			],
+			[
+				"s",
+				"scale()"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/cc/cc-helpers"
+	],
+	"file_history":
+	[
+		"/D/Projects/die-sector/web/main.js",
+		"/D/Projects/die-sector/web/diamondGrid.json",
+		"/D/Projects/die-sector/web/index.html",
+		"/D/Projects/die-sector/web/style.css",
+		"/D/Projects/die-sector/public/scripts.js",
+		"/D/Projects/die-sector/.ddev/config.yaml",
+		"/D/Projects/die-sector/public/styles.css",
+		"/D/Projects/die-sector/public/hexagon.svg",
+		"/D/Projects/die-sector/public/index.html",
+		"/D/Projects/die-sector/index.html",
+		"/D/Projects/die-sector/styles.css",
+		"/D/Projects/die-sector/scripts.js",
+		"/D/Projects/die-sector/hexagon.svg",
+		"/D/Projects/webgl-app/src/styles.css",
+		"/D/Projects/webgl-app/src/index.html",
+		"/D/Projects/webgl-app/src/main.js",
+		"/D/Projects/Ludo/templates/jeux/_entry.twig",
+		"/D/Projects/Ludo/templates/jeux/index.twig",
+		"/D/Projects/Ludo/templates/jeux/invasion-extra-terrestres.twig",
+		"/D/Projects/Ludo/templates/jeux/mathemagique.twig",
+		"/D/Projects/Ludo/web/index.php",
+		"/D/Projects/Ludo/web/js/jeux/invasion-extra-terrestres.js",
+		"/D/Projects/Ludo/web/js/jeux/mathemagics.js",
+		"/D/Projects/Ludo/.gitignore",
+		"/D/Projects/Ludo/package-lock.json",
+		"/D/Projects/Ludo/package.json",
+		"/D/Projects/Ludo/composer.json",
+		"/D/Projects/spaceship-generator/public/index.html",
+		"/D/Projects/spaceship-generator/public/tileTypes.json",
+		"/D/Projects/spaceship-generator/public/spaceship.js",
+		"/D/Projects/spaceship-generator/public/spaceship.css",
+		"/D/Projects/spaceship-generator/ndwfc/index.html",
+		"/D/Projects/spaceship-generator/server.js",
+		"/D/Projects/spaceship-generator/package.json",
+		"/D/Projects/spaceship-generator/public/ndwfc/ndwfc.js",
+		"/D/Projects/spaceship-generator/public/ndwfc/ndwfc-tools.js",
+		"/D/Projects/spaceship-generator/public/old/spaceship.js",
+		"/D/Projects/spaceship-generator/ndwfc/index.js",
+		"/D/Projects/spaceship-generator/ndwfc/ndwfc-tools.js",
+		"/D/Projects/spaceship-generator/ndwfc/ndwfc.js",
+		"/D/Projects/spaceship-generator/Dockerfile",
+		"/D/Projects/spaceship-generator/docker-compose.yml",
+		"/D/Projects/webgl-app/docker-compose.yml",
+		"/D/Projects/webgl-app/Dockerfile",
+		"/D/Projects/webgl-app/src/package.json",
+		"/D/Projects/webgl-app/src/Dockerfile",
+		"/D/Projects/webgl-app/src/docker-compose.yml",
+		"/D/Projects/Ludo/templates/_layout-jeux.twig",
+		"/D/Projects/Ludo/web/css/styles.css",
+		"/D/Magica/vox/RPG/structure.vox",
+		"/D/Magica/export/TEST.vox",
+		"/D/Magica/formats/test.mtl",
+		"/D/Magica/formats/untitled.ply",
+		"/D/Magica/formats/test.obj",
+		"/D/Magica/formats/untitled.xraw",
+		"/D/Projects/Ludo/templates/index.twig",
+		"/D/Projects/prototypes/index.php",
+		"/D/Projects/Ludo/templates/jeux/_layout.twig",
+		"/D/Projects/Ludo/web/test/Screenshot-2024-01-29-124829.png",
+		"/D/Projects/Ludo/mathemagics.js",
+		"/D/Projects/Ludo/styles.css",
+		"/D/Projects/Ludo/index.php"
+	],
+	"find":
+	{
+		"height": 31.0
+	},
+	"find_in_files":
+	{
+		"height": 169.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 102.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cc-helpers.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 323.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 253.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
