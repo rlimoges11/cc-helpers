@@ -1,8 +1,0 @@
-{
-  NAME = "Harvey-",
-  LOW_FUEL_THRESHOLD = 20000,
-  HARVEST_ROW_LENGTH = 16,
-  MAX_FUEL = 100000,
-  HARVEST_MAX_AGE = 7,
-  HARVEST_MODE = "bottom" 
-}
