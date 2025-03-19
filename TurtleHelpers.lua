@@ -3,31 +3,31 @@ print(label .. " online")
 
 LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
 if(LOW_FUEL_THRESHOLD == nil) then
-	settings.set ("LOW_FUEL_THRESHOLD", "20000")
-	LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
+	settings.set ("LOW_FUEL_THRESHOLD", 20000)
+	LOW_FUEL_THRESHOLD = 20000
 end
 
 HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
 if(HIGH_FUEL_THRESHOLD == nil) then
-	settings.set ("HIGH_FUEL_THRESHOLD", "30000")
-	HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
+	settings.set ("HIGH_FUEL_THRESHOLD", 30000)
+	HIGH_FUEL_THRESHOLD = 30000
 end
 
 if(MAX_FUEL == nil) then
-	settings.set ("MAX_FUEL", "100000")
-	MAX_FUEL = settings.get("MAX_FUEL")
+	settings.set ("MAX_FUEL", 100000)
+	MAX_FUEL = 100000
 end
 
 HARVEST_ROW_LENGTH = settings.get("HARVEST_ROW_LENGTH")
 if(HARVEST_ROW_LENGTH == nil) then
-	settings.set ("HARVEST_ROW_LENGTH", "16")
-	HARVEST_ROW_LENGTH = settings.get("HARVEST_ROW_LENGTH")
+	settings.set ("HARVEST_ROW_LENGTH", 16)
+	HARVEST_ROW_LENGTH = 16
 end
 
 HARVEST_MAX_AGE = settings.get("HARVEST_MAX_AGE")
 if(HARVEST_MAX_AGE == nil) then
-	settings.set ("HARVEST_MAX_AGE", "16")
-	HARVEST_MAX_AGE = settings.get("HARVEST_MAX_AGE")
+	settings.set ("HARVEST_MAX_AGE", 7)
+	HARVEST_MAX_AGE = 7
 end
 
 HARVEST_MODE = settings.get("HARVEST_MODE")
@@ -151,7 +151,10 @@ end
 
 
 function IsLowOnFuel()
-    if turtle.getFuelLevel() < LOW_FUEL_THRESHOLD then
+
+	local fuelLevel = math.floor(turtle.getFuelLevel())
+	
+	if fuelLevel < LOW_FUEL_THRESHOLD then
 		printFuel()
 		print(label .. " is fueling up.")
         TryRefillIfLow = false
