@@ -1,54 +1,24 @@
 label = os.computerLabel()
 print(label .. " online")
 
-LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
-if(LOW_FUEL_THRESHOLD == nil) then
-	settings.set ("LOW_FUEL_THRESHOLD", 20000)
-	LOW_FUEL_THRESHOLD = 20000
-end
-
-HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
-if(HIGH_FUEL_THRESHOLD == nil) then
-	settings.set ("HIGH_FUEL_THRESHOLD", 30000)
-	HIGH_FUEL_THRESHOLD = 30000
-end
-
-if(MAX_FUEL == nil) then
-	settings.set ("MAX_FUEL", 100000)
-	MAX_FUEL = 100000
-end
-
-HARVEST_ROW_LENGTH = settings.get("HARVEST_ROW_LENGTH")
-if(HARVEST_ROW_LENGTH == nil) then
-	settings.set ("HARVEST_ROW_LENGTH", 16)
-	HARVEST_ROW_LENGTH = 16
-end
-
-HARVEST_MAX_AGE = settings.get("HARVEST_MAX_AGE")
-if(HARVEST_MAX_AGE == nil) then
-	settings.set ("HARVEST_MAX_AGE", 7)
-	HARVEST_MAX_AGE = 7
-end
-
-HARVEST_MODE = settings.get("HARVEST_MODE")
-if(HARVEST_MODE == nil) then
-	settings.set ("HARVEST_MODE", "bottom")
-	HARVEST_MODE = settings.get("HARVEST_MODE")
-end
-
 local hasBlock
 local originalBlockData
-local maxAge = HARVEST_MAX_AGE
+
+-- Get settings
+local LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
+local HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
+local HARVEST_ROW_LENGTH = settings.get("HARVEST_ROW_LENGTH")
+local HARVEST_MAX_AGE = settings.get("HARVEST_MAX_AGE")
+local HARVEST_MODE = settings.get("HARVEST_MODE")
+local MAX_FUEL = settings.get("MAX_FUEL")
 
 function consider()
 	inspectMode()
 	
-	
-	
-	if(mode == "bottom") then
+	if(HARVEST_MODE == "bottom") then
 		if hasBlock and originalBlockData.state.age ~= nil then
-			if maxAge ~= nil then
-				if originalBlockData.state.age >= maxAge then
+			if HARVEST_MAX_AGE ~= nil then
+				if originalBlockData.state.age >= HARVEST_MAX_AGE then
 					digMode()
 				end
 			else
