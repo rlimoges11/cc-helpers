@@ -99,6 +99,8 @@ end
 function IsLowOnFuel()
 
 	local fuelLevel = math.floor(turtle.getFuelLevel())
+	local monitor = peripheral.find("monitor") or print("No monitor attached")
+	term.redirect(monitor)
 	
 	if fuelLevel < LOW_FUEL_THRESHOLD then
 		printFuel()
@@ -122,7 +124,6 @@ function IsLowOnFuel()
 					os.sleep(1)
 
 					turtle.dropDown()
-					os.sleep(1)
 					if(i % 5 == 0) then
 						printFuel()	
 					end
