@@ -244,5 +244,6 @@ function initTurtle()
 	print ("HARVEST_MAX_AGE: " .. HARVEST_MAX_AGE .. ".")
 	print ("HARVEST_MODE: " .. HARVEST_MODE .. ".")
 	print ("HARVEST_CROP: " .. HARVEST_CROP .. ".")
+	
 	IsLowOnFuel()
 end
