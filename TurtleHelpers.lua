@@ -87,7 +87,7 @@ function dropInventory()
 	print(label .. " docked \n")
 	term.setTextColor(colors.green)
 
-	print("Depositing \n")
+	print("Unloading... \n")
 	local container = peripheral.wrap("bottom")
 	if container == nil then
 		print(label .. " Alert: Drop chest not found.")
@@ -140,7 +140,7 @@ function IsLowOnFuel()
 	
 	if fuelLevel < LOW_FUEL_THRESHOLD then
 		printFuel()
-		print(label .. " fueling up")
+		print(label .. " fueling...")
         TryRefillIfLow = false
         --local previousData = TurtleGPS.ReturnToOrigin(true)
 
