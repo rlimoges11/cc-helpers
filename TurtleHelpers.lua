@@ -92,19 +92,35 @@ function dropInventory()
 end
 
 function printFuel()
-	print(label .. " fuel: " .. turtle.getFuelLevel() .. "/" .. MAX_FUEL)
+	local f = math.floor(turtle.getFuelLevel() / 1000)
+	if(turtle.getFuelLevel() <= HIGH_FUEL_THRESHOLD) then
+		term.setTextColor(colors.orange)
+	else
+		term.setTextColor(colors.green)
+	end
+	
+	print("Fuel: " .. f .. "/" .. MAX_FUEL / 1000)
 end
 
 
 function IsLowOnFuel()
-
 	local fuelLevel = math.floor(turtle.getFuelLevel())
 	local monitor = peripheral.find("monitor") or print("No monitor attached")
-	term.redirect(monitor)
+	
+	if(monitor) then
+		monitor.setTextScale(0.5)
+		monitor.clear()
+		monitor.setCursorPos(1,1)
+		term.redirect(monitor)
+	
+		monitor.setTextColor(colors.lime)
+	end
+	print(label .. " docked \n")
+	
 	
 	if fuelLevel < LOW_FUEL_THRESHOLD then
 		printFuel()
-		print(label .. " is fueling up.")
+		print(label .. " fueling up")
         TryRefillIfLow = false
         --local previousData = TurtleGPS.ReturnToOrigin(true)
 
@@ -134,7 +150,7 @@ function IsLowOnFuel()
         end
 
         printError(
-            "\n\n" .. label .. " is running low on fuel. all operations have been stopped until fuel is provided on the chest above.\n")
+            "\n\n" .. label .. " low fuel: ")
         while (turtle.getFuelLevel() <= HIGH_FUEL_THRESHOLD) do
 			printFuel()
             if getFuel() then
@@ -142,16 +158,34 @@ function IsLowOnFuel()
                 break
             end
         end
+		monitor.setTextColor(colors.green)
+		print(label .. " refueled")
 		
-		print(label .. " is sufficiently refueled.")
-		consider()
+		
+		deploy()
+		monitor = nil
 	else 
-		printFuel()
-		print(label .. " fuel is within threshold.")
-		consider()
+		deploy()
+		monitor = nil
     end
 end
 
+function deploy()
+	printFuel()
+	print("Fuel acceptable\n")
+	term.setCursorBlink(true)
+	print("Deploying ...")
+	print(label)
+	print()
+	sleep(3)
+	term.setCursorBlink(false)
+	term.setTextColor(colors.lime)
+	print(label)
+	print("Deployed")
+	
+	term.redirect(term.native())
+	consider()
+end
 
 function initTurtle() 
 	print ("LOW_FUEL_THRESHOLD: " .. LOW_FUEL_THRESHOLD .. ".")
