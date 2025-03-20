@@ -75,8 +75,7 @@ function bringHome(steps)
 end
 
 function dropInventory()
-	local monitor = peripheral.find("monitor") or print("No monitor attached")
-	
+	local monitor = peripheral.find("monitor") or monitor = nil
 	if(monitor) then
 		monitor.setTextScale(0.5)
 		monitor.clear()
