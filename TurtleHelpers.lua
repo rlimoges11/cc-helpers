@@ -8,6 +8,7 @@ local HARVEST_ROW_LENGTH = settings.get("HARVEST_ROW_LENGTH")
 local HARVEST_MAX_AGE = settings.get("HARVEST_MAX_AGE")
 local HARVEST_MODE = settings.get("HARVEST_MODE")
 local MAX_FUEL = settings.get("MAX_FUEL")
+local HARVEST_CROP = settings.get("HARVEST_CROP")
 
 function consider()
 	if(HARVEST_MODE == "bottom") then
@@ -28,6 +29,35 @@ function consider()
 	end
 	
 	turtle.forward()
+	
+	
+	
+	if HARVEST_CROP ~= nil and HARVEST_CROP ~= "" then
+		if turtle.getItemDetail() ~= nil then
+			if turtle.getItemDetail(i).name ~= HARVEST_CROP then
+				-- Wrong thing selected
+				SelectItem(HARVEST_CROP)
+			end
+		else
+			-- Nothig selected
+			SelectItem(HARVEST_CROP)
+		end
+	end
+end
+
+
+--Locate an item by the minespace
+function SelectItem(itemName)
+    for i = 1, 16, 1 do
+        if (turtle.getItemDetail(i) ~= nil ) then
+			if(itemName == turtle.getItemDetail(i).name) then
+				turtle.select(i)
+				return true
+			end
+        end
+    end
+
+    return false
 end
 
 
@@ -213,5 +243,6 @@ function initTurtle()
 	print ("HARVEST_ROW_LENGTH: " .. HARVEST_ROW_LENGTH .. ".")
 	print ("HARVEST_MAX_AGE: " .. HARVEST_MAX_AGE .. ".")
 	print ("HARVEST_MODE: " .. HARVEST_MODE .. ".")
+	print ("HARVEST_CROP: " .. HARVEST_CROP .. ".")
 	IsLowOnFuel()
 end
