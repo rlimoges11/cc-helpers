@@ -75,7 +75,19 @@ function bringHome(steps)
 end
 
 function dropInventory()
-	print(label .. " is unloading inventory.")
+	local monitor = peripheral.find("monitor") or print("No monitor attached")
+	
+	if(monitor) then
+		monitor.setTextScale(0.5)
+		monitor.clear()
+		monitor.setCursorPos(1,1)
+		term.redirect(monitor)
+		monitor.setTextColor(colors.lime)
+	end
+	print(label .. " docked \n")
+	term.setTextColor(colors.green)
+
+	print("Depositing \n")
 	local container = peripheral.wrap("bottom")
 	if container == nil then
 		print(label .. " Alert: Drop chest not found.")
@@ -89,6 +101,13 @@ function dropInventory()
 		end
 		turtle.dropDown()
 	end
+
+	term.setTextColor(colors.lime)
+	print(label)
+	print("Fully unloaded")
+
+	term.redirect(term.native())
+	monitor = nil
 end
 
 function printFuel()
