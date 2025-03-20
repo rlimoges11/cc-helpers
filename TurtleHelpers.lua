@@ -100,6 +100,7 @@ function printFuel()
 	end
 	
 	print("Fuel: " .. f .. "/" .. MAX_FUEL / 1000)
+	term.setTextColor(colors.green)
 end
 
 
