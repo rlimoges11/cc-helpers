@@ -2,6 +2,7 @@ label = os.computerLabel()
 print(label .. " online")
 
 -- Get settings
+local LauncherCoordinates = settings.get("LauncherCoordinates")
 local LOW_FUEL_THRESHOLD = settings.get("LOW_FUEL_THRESHOLD")
 local HIGH_FUEL_THRESHOLD = settings.get("HIGH_FUEL_THRESHOLD")
 local HARVEST_ROW_LENGTH = settings.get("HARVEST_ROW_LENGTH")
@@ -9,6 +10,15 @@ local HARVEST_MAX_AGE = settings.get("HARVEST_MAX_AGE")
 local HARVEST_MODE = settings.get("HARVEST_MODE")
 local MAX_FUEL = settings.get("MAX_FUEL")
 local HARVEST_CROP = settings.get("HARVEST_CROP")
+
+
+-- Turtle Self-tracking System created by Latias1290.
+local xPos, yPos, zPos = nil
+face = 1
+cal = false
+state = "Seeking launchpad"
+
+
 
 function consider()
 	if(HARVEST_MODE == "bottom") then
@@ -29,8 +39,6 @@ function consider()
 	end
 	
 	turtle.forward()
-	
-	
 	
 	if HARVEST_CROP ~= nil and HARVEST_CROP ~= "" then
 		if turtle.getItemDetail() ~= nil then
@@ -96,12 +104,8 @@ function dock()
 end
 
 function bringHome(steps)
-	for i = 1, steps, 1 do
-		turtle.forward()
-	end
-	
 	turtle.turnRight()
-	IsLowOnFuel()
+	gotoLaunchPad()
 end
 
 function dropInventory()
@@ -226,6 +230,7 @@ function deploy()
 	print("Deploying ...")
 	print(label)
 	print()
+	state = "Harvesting"
 	sleep(3)
 	term.setCursorBlink(false)
 	term.setTextColor(colors.lime)
@@ -236,7 +241,122 @@ function deploy()
 	consider()
 end
 
+function gotoLaunchPad()
+	if LauncherCoordinates ~= nil then
+		term.setTextColor(colors.lime)
+		print("seeking launchpad at")
+		print(getLaunchCoorString())
+	else
+		term.setTextColor(colors.red)
+		print("Missing Coordinates")
+	end
+	
+	
+	setLocation()
+	correctYPosition()
+
+
+	correctXPosition()
+	turtle.back()
+	turtle.turnLeft()
+	
+	correctZPosition()
+	
+	
+	turtle.turnRight()
+	turtle.forward()
+
+	setLocation()
+	
+	-- Docked, check Fuel and harvest
+	state = "Fueling"
+	IsLowOnFuel()
+	
+end
+
+function correctYPosition()
+	while math.floor(LauncherCoordinates[2]) ~=  math.floor(yPos) do
+		getLocation()
+		if math.floor(LauncherCoordinates[2]) <  math.floor(yPos) and yPos < 70 then
+			turtle.down()
+			setLocation()
+		elseif math.floor(LauncherCoordinates[2]) >  math.floor(yPos) and yPos > 60 then
+			turtle.up()
+			setLocation()
+		else
+			return
+		end
+	end
+end
+
+function correctZPosition()
+	while math.floor(LauncherCoordinates[3]) ~=  math.floor(zPos) do
+		getLocation()
+		if math.floor(LauncherCoordinates[3]) <  math.floor(zPos) then
+			turtle.forward()
+			setLocation()
+		elseif math.floor(LauncherCoordinates[3]) >  math.floor(zPos)then
+			turtle.back()
+			setLocation()
+		else
+			return
+		end
+	end
+end
+
+function correctXPosition()
+	while math.floor(LauncherCoordinates[1]) ~=  math.floor(xPos) do
+		getLocation()
+		if math.floor(LauncherCoordinates[1]) <  math.floor(xPos) then
+			turtle.back()
+			setLocation()
+		elseif math.floor(LauncherCoordinates[1]) >  math.floor(xPos) then
+			turtle.forward()
+			setLocation()
+		else
+		end
+	end
+end
+
+function getLaunchCoorString()
+	if LauncherCoordinates ~= nil then
+		local x = tostring(LauncherCoordinates[1])
+		local y = tostring(LauncherCoordinates[2])
+		local z = tostring(LauncherCoordinates[3])
+		return x .. ", " .. y.. ", "  .. z
+	else
+		return nil
+	end
+end
+
+function setLocation()
+	xPos, yPos, zPos = gps.locate()
+	cal = true
+end
+
+function manSetLocation(x, y, z)
+	xPos = x
+	yPos = y
+	zPos = z
+	cal = true
+end
+
+function getLocation()
+	if xPos ~= nil then
+		return xPos, yPos, zPos
+	else
+		return nil
+	end
+end
+ 
+function jump() -- perform a jump. useless? yup!
+	turtle.up()
+	turtle.down()
+end
+
 function initTurtle() 
+	term.setTextColor(colors.green)
+	print ("Launcher Coordinates: " .. getLaunchCoorString() .. ".")
 	print ("LOW_FUEL_THRESHOLD: " .. LOW_FUEL_THRESHOLD .. ".")
 	print ("HIGH_FUEL_THRESHOLD: " .. HIGH_FUEL_THRESHOLD .. ".")
 	print ("MAX_FUEL: " .. MAX_FUEL .. ".")
@@ -245,5 +365,5 @@ function initTurtle()
 	print ("HARVEST_MODE: " .. HARVEST_MODE .. ".")
 	print ("HARVEST_CROP: " .. HARVEST_CROP .. ".")
 	
-	IsLowOnFuel()
+	gotoLaunchPad()
 end
