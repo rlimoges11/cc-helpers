@@ -1,6 +1,6 @@
 function logger(msg) 
 	term.setTextColor(colors.white)
-	write(getTime() .. " : ")
+	write(getTime() .. " ")
 	term.setTextColor(colors.lime)
 	write(msg .. "\n")
 end

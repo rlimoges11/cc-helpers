@@ -194,12 +194,9 @@ function IsLowOnFuel()
 				if(turtle.getFuelLevel() <= HIGH_FUEL_THRESHOLD) then
 					turtle.suckUp(1)
 					turtle.refuel(1)
+					printFuel()	
 					os.sleep(1)
-
 					turtle.dropDown()
-					if(i % 5 == 0) then
-						printFuel()	
-					end
 				end
             end
 		
