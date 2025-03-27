@@ -1,5 +1,7 @@
+require ("../cc-helpers/MonitorHelpers")
+
 label = os.computerLabel()
-print(label .. " online")
+logger(label .. " online")
 
 -- Get settings
 local LauncherCoordinates = settings.get("LauncherCoordinates")
@@ -17,6 +19,8 @@ local xPos, yPos, zPos = nil
 face = 1
 cal = false
 state = "Seeking launchpad"
+
+
 
 
 
@@ -244,9 +248,9 @@ end
 function gotoLaunchPad()
 	if LauncherCoordinates ~= nil then
 		term.setTextColor(colors.lime)
-		print("seeking launchpad at")
-		print(getLaunchCoorString())
+		logger("seeking launchpad (" .. getLaunchCoorString() .. ")")
 	else
+		
 		term.setTextColor(colors.red)
 		print("Missing Coordinates")
 	end

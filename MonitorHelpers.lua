@@ -1,9 +1,17 @@
+function logger(msg) 
+	term.setTextColor(colors.white)
+	write(getTime() .. " : ")
+	term.setTextColor(colors.lime)
+	write(msg .. "\n")
+end
+
 function display_clear(screen, label)
 	print ("Clearing screen on computer: " .. label)
 	screen.clear()
 	screen.setBackgroundColor(colors.black)
 	
 	screen.setTextColor(colors.white)
+
 	if label == "Jumbotron" then 
 		screen.setTextScale(2)
 	elseif label == "medivac" then 
@@ -11,6 +19,8 @@ function display_clear(screen, label)
 	else
 		screen.setTextScale(0.5)
 	end
+
+
 	
 	print (tostring(screen) .. " " .. tostring(screen.getSize()) .. " cleared.")
 end
@@ -22,6 +32,10 @@ function write_center(screen, text)
   screen.setCursorPos(math.floor((width - #text) / 2) + 1, y)
   screen.write(text)
 end
+
+function getTime()
+	return tostring(textutils.formatTime(os.time("local"), true))
+end 
 
 function setScreenColor(screen, color )
 
@@ -76,4 +90,4 @@ function setScreenColor(screen, color )
 end
 
 
-return { reset = reset, write_center = write_center, display_clear = display_clear }
+return { reset = reset, write_center = write_center, display_clear = display_clear, writeTime = writeTime }
