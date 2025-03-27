@@ -358,12 +358,27 @@ function flyToY(newY)
 
 	while newY ~=  math.floor(yPos) do
 		getLocation()
-		if newY <  math.floor(yPos) and yPos < 70 then
+		if newY <  math.floor(yPos) then
 			turtle.down()
 			setLocation()
-		elseif newY >  math.floor(yPos) and yPos > 60 then
+
+			-- stuck
+			while(yOld == yPos) do
+				turtle.forward()
+				turtle.down()
+				setLocation()
+			end
+		elseif newY >  math.floor(yPos)  then
 			turtle.up()
 			setLocation()
+
+			-- stuck
+			while(yOld == yPos) do
+				turtle.forward()
+				turtle.down()
+				setLocation()
+			end
+
 		else
 			return
 		end
@@ -406,24 +421,18 @@ function initTurtle()
 	print ("HARVEST_MAX_AGE: " .. HARVEST_MAX_AGE .. ".")
 	print ("HARVEST_MODE: " .. HARVEST_MODE .. ".")
 	print ("HARVEST_CROP: " .. HARVEST_CROP .. ".")
-
-
 	printLocation()
 
-		local x = (LauncherCoordinates[1])
-		local y = (LauncherCoordinates[2])
-		local z = (LauncherCoordinates[3])
+	local x = (LauncherCoordinates[1])
+	local y = (LauncherCoordinates[2])
+	local z = (LauncherCoordinates[3])
 
-	if(xPos == LauncherCoordinates[1] and yPos == LauncherCoordinates[2] )  then
-
-		print("L")
+	if(xPos == LauncherCoordinates[1] and yPos == LauncherCoordinates[2] and zPos == LauncherCoordinates[3] )  then
 		launch()
 	else
 		flyToY(69)
 		getFacing()
 	end
-
-	--
 end
 
 
