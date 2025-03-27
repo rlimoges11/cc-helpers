@@ -113,7 +113,8 @@ function dropInventory()
 	if(monitor) then
 		term.redirect(monitor)
 		recalibrate(monitor)
-		logger(label .. " Unloading... \n")
+		logger(label)
+		write_center(term, "UNLOADING\n\n")
 	end
 	
 
@@ -135,8 +136,7 @@ function dropInventory()
 	term.setTextColor(colors.green)
 	logger(label)
 	write_center(term, "UNLOADED")
-	write_center(term, "DEPLOYED")
-	print("")
+	write_center(term, "DEPLOYED \n")
 
 	term.redirect(term.native())
 	monitor = nil
@@ -167,7 +167,7 @@ function IsLowOnFuel()
 	
 		monitor.setTextColor(colors.lime)
 	end
-	logger(label .. " Docked home")
+	logger(label)
 	
 	
 	if fuelLevel < LOW_FUEL_THRESHOLD then
@@ -208,14 +208,13 @@ function IsLowOnFuel()
             end
         end
 		monitor.setTextColor(colors.green)
-		print(label .. " refueled")
-		
-		
+		logger(label)
+		write_center(term, "REFUELED")
 		deploy()
 		monitor = nil
 	else 
 		deploy()
-		monitor = nilx
+		monitor = nil
     end
 end
 
@@ -229,7 +228,8 @@ function deploy()
 	state = "Harvesting"
 	sleep(2)
 	term.setCursorBlink(false)
-	logger(label .. "Deployed")
+	logger(label)
+	write_center(term, "DEPLOYED")
 	print("")
 	term.redirect(term.native())
 	consider()
