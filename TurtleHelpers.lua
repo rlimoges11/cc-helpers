@@ -15,9 +15,10 @@ local HARVEST_CROP = settings.get("HARVEST_CROP")
 
 -- Turtle Self-tracking System created by Latias1290.
 local xPos, yPos, zPos = nil
-face = 1
+local xOld, yOld, zOld = nil
+face = -1
 cal = false
-state = "Seeking launchpad"
+state = "Finding facing direction"
 
 
 function consider()
@@ -246,15 +247,20 @@ function gotoLaunchPad()
 	end
 	
 	
-	setLocation()
-	correctYPosition()
 
+
+	setLocation()
+	
 
 	correctXPosition()
 	turtle.back()
 	turtle.turnLeft()
 	
+
+
 	correctZPosition()
+	
+	correctYPosition()
 	
 	
 	turtle.turnRight()
@@ -262,15 +268,12 @@ function gotoLaunchPad()
 
 	setLocation()
 	
-	-- Docked, check Fuel and harvest
-	state = "Fueling"
-	IsLowOnFuel()
+	launch()
 	
 end
 
 function correctYPosition()
 	while math.floor(LauncherCoordinates[2]) ~=  math.floor(yPos) do
-		getLocation()
 		if math.floor(LauncherCoordinates[2]) <  math.floor(yPos) and yPos < 70 then
 			turtle.down()
 			setLocation()
@@ -324,6 +327,7 @@ function getLaunchCoorString()
 end
 
 function setLocation()
+	xOld, yOld, zOld = xPos, yPos, zPos
 	xPos, yPos, zPos = gps.locate()
 	cal = true
 end
@@ -348,6 +352,50 @@ function jump() -- perform a jump. useless? yup!
 	turtle.down()
 end
 
+
+function flyToY(newY)
+	setLocation()
+
+	while newY ~=  math.floor(yPos) do
+		getLocation()
+		if newY <  math.floor(yPos) and yPos < 70 then
+			turtle.down()
+			setLocation()
+		elseif newY >  math.floor(yPos) and yPos > 60 then
+			turtle.up()
+			setLocation()
+		else
+			return
+		end
+	end
+end
+
+function printLocation()
+	getLocation()
+	setLocation()
+
+	logger ("" .. math.floor(xPos) .. "," .. math.floor(yPos) .. "," .. math.floor(zPos))
+
+end
+
+function getFacing()
+	while xOld >= xPos do
+		getLocation()
+		print (xOld .. " " .. xPos)
+		turtle.turnLeft()
+		turtle.forward()
+		setLocation()
+	end
+	
+	gotoLaunchPad()
+end
+
+function launch()
+	-- Docked, check Fuel and harvest
+	state = "Fueling"
+	IsLowOnFuel()
+end
+
 function initTurtle() 
 	term.setTextColor(colors.green)
 	print ("Launcher Coordinates: " .. getLaunchCoorString() .. ".")
@@ -358,6 +406,24 @@ function initTurtle()
 	print ("HARVEST_MAX_AGE: " .. HARVEST_MAX_AGE .. ".")
 	print ("HARVEST_MODE: " .. HARVEST_MODE .. ".")
 	print ("HARVEST_CROP: " .. HARVEST_CROP .. ".")
-	
-	gotoLaunchPad()
+
+
+	printLocation()
+
+		local x = (LauncherCoordinates[1])
+		local y = (LauncherCoordinates[2])
+		local z = (LauncherCoordinates[3])
+
+	if(xPos == LauncherCoordinates[1] and yPos == LauncherCoordinates[2] )  then
+
+		print("L")
+		launch()
+	else
+		flyToY(69)
+		getFacing()
+	end
+
+	--
 end
+
+
