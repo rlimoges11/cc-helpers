@@ -3,6 +3,7 @@ function logger(msg)
 	write(getTime() .. " ")
 	term.setTextColor(colors.lime)
 	write(msg .. "\n")
+	term.setTextColor(colors.green)
 end
 
 function display_clear(screen, label)
@@ -20,13 +21,26 @@ function display_clear(screen, label)
 		screen.setTextScale(0.5)
 	end
 
-
-	
 	print (tostring(screen) .. " " .. tostring(screen.getSize()) .. " cleared.")
 end
 
 
+function recalibrate(mon)
+		mon.setTextScale(0.5)
+		mon.clear()
+		mon.setCursorPos(1,1)
+end
+
 function write_center(screen, text)
+  local x, y = screen.getCursorPos()
+  local width, height = screen.getSize()
+  screen.setCursorPos(math.floor((width - #text) / 2) + 1, y)
+  screen.write(text)
+  screen.print("")
+end
+
+function write_center(screen, text)
+	print("")
   local x, y = screen.getCursorPos()
   local width, height = screen.getSize()
   screen.setCursorPos(math.floor((width - #text) / 2) + 1, y)
@@ -90,4 +104,4 @@ function setScreenColor(screen, color )
 end
 
 
-return { reset = reset, write_center = write_center, display_clear = display_clear, writeTime = writeTime }
+return { reset = reset, write_center = write_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate }

@@ -1,5 +1,4 @@
 require ("../cc-helpers/MonitorHelpers")
-
 label = os.computerLabel()
 logger(label .. " online")
 
@@ -19,9 +18,6 @@ local xPos, yPos, zPos = nil
 face = 1
 cal = false
 state = "Seeking launchpad"
-
-
-
 
 
 function consider()
@@ -115,16 +111,13 @@ end
 function dropInventory()
 	local monitor = peripheral.find("monitor") or nil
 	if(monitor) then
-		monitor.setTextScale(0.5)
-		monitor.clear()
-		monitor.setCursorPos(1,1)
 		term.redirect(monitor)
-		monitor.setTextColor(colors.lime)
+		recalibrate(monitor)
+		logger(label .. " Unloading... \n")
 	end
-	print(label .. " docked \n")
-	term.setTextColor(colors.green)
+	
 
-	print("Unloading... \n")
+	
 	local container = peripheral.wrap("bottom")
 	if container == nil then
 		print(label .. " Alert: Drop chest not found.")
@@ -139,9 +132,11 @@ function dropInventory()
 		turtle.dropDown()
 	end
 
-	term.setTextColor(colors.lime)
-	print(label)
-	print("Fully unloaded")
+	term.setTextColor(colors.green)
+	logger(label)
+	write_center(term, "UNLOADED")
+	write_center(term, "DEPLOYED")
+	print("")
 
 	term.redirect(term.native())
 	monitor = nil
@@ -172,7 +167,7 @@ function IsLowOnFuel()
 	
 		monitor.setTextColor(colors.lime)
 	end
-	print(label .. " docked \n")
+	logger(label .. " Docked home")
 	
 	
 	if fuelLevel < LOW_FUEL_THRESHOLD then
@@ -220,24 +215,22 @@ function IsLowOnFuel()
 		monitor = nil
 	else 
 		deploy()
-		monitor = nil
+		monitor = nilx
     end
 end
 
 function deploy()
 	printFuel()
-	print("Fuel acceptable\n")
 	term.setCursorBlink(true)
-	print("Deploying ...")
-	print(label)
-	print()
+	write_center(term, label)
+	write_center(term, "READY")
+	print("")
+	print("")
 	state = "Harvesting"
-	sleep(3)
+	sleep(2)
 	term.setCursorBlink(false)
-	term.setTextColor(colors.lime)
-	print(label)
-	print("Deployed")
-	
+	logger(label .. "Deployed")
+	print("")
 	term.redirect(term.native())
 	consider()
 end
