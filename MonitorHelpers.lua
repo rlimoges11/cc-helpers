@@ -1,9 +1,20 @@
 function logger(msg) 
-	term.setTextColor(colors.white)
-	write(getTime() .. " ")
-	term.setTextColor(colors.lime)
-	write(msg .. "\n")
-	term.setTextColor(colors.green)
+	if windows["logs"] ~= nil then
+		term.setTextColor(colors.black)
+		term.clearLine(20)
+		term.write(getTime() .. " ")
+		term.setTextColor(colors.lime)
+		term.write(msg)
+		term.setTextColor(colors.green)
+		print("")
+	else
+		term.setTextColor(colors.white)
+		term.write(getTime() .. " ")
+		term.setTextColor(colors.lime)
+		term.write(msg)
+		term.setTextColor(colors.green)
+		print("")
+	end
 end
 
 function display_clear(screen, label)
@@ -24,27 +35,27 @@ function display_clear(screen, label)
 	print (tostring(screen) .. " " .. tostring(screen.getSize()) .. " cleared.")
 end
 
-
 function recalibrate(mon)
 		mon.setTextScale(0.5)
 		mon.clear()
 		mon.setCursorPos(1,1)
 end
 
-function write_center(screen, text)
-  local x, y = screen.getCursorPos()
-  local width, height = screen.getSize()
-  screen.setCursorPos(math.floor((width - #text) / 2) + 1, y)
-  screen.write(text)
-  screen.print("")
+function write_center(text)
+  local x, y = term.getCursorPos()
+  local width, height = term.getSize()
+  term.setCursorPos(math.floor((width - #text) / 2) + 1, y)
+  term.write(text)
 end
 
-function write_center(screen, text)
-	print("")
-  local x, y = screen.getCursorPos()
-  local width, height = screen.getSize()
-  screen.setCursorPos(math.floor((width - #text) / 2) + 1, y)
-  screen.write(text)
+function print_center(text, bg)
+  local x, y = term.getCursorPos()
+  local width, height = term.getSize()
+  term.setBackgroundColor(bg)
+  term.setCursorPos(math.floor((width - #text) / 2) + 1, y)
+  print(text)
+  term.setCursorPos(1, y+1)
+
 end
 
 function getTime()
@@ -52,7 +63,6 @@ function getTime()
 end 
 
 function setScreenColor(screen, color )
-
 			if color == "white" then
 				screen.setTextColor(colors.white)
 			end
@@ -104,4 +114,4 @@ function setScreenColor(screen, color )
 end
 
 
-return { reset = reset, write_center = write_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate }
+return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate }
