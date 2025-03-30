@@ -1,4 +1,4 @@
-local mainWindow = nil
+windows = {}
 
 function drawMenu()
 	term.setCursorPos(1,1)
