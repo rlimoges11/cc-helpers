@@ -1,5 +1,4 @@
-local mainWindow = nil
-
+local windows = {}
 function drawMenu()
 	term.setCursorPos(1,1)
 	term.setBackgroundColor(colors.gray)
