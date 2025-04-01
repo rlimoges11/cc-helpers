@@ -1,22 +1,23 @@
-function logger(msg) 
-	if windows["logs"] ~= nil then
-		term.setTextColor(colors.black)
-		term.write(getTime() .. " ")
+function logger(msg, scheme) 
+	if scheme == nil then
+			scheme=""
+	end
 
-		write_center(os.computerLabel)
-	term.clearLine(20)
-		term.write(getTime() .. " ")
+	if windows ~= nil then
+print("")
+		term.setTextColor(colors.black)
+		term.write(getTime())
+print("")
 		term.setTextColor(colors.lime)
-		term.write(msg)
-		term.setTextColor(colors.green)
-		print("")
+		fastprint(msg, 0.02)
+print("")
+
 	else
 		term.setTextColor(colors.white)
 		term.write(getTime() .. " ")
 		term.setTextColor(colors.lime)
 		term.write(msg)
 		term.setTextColor(colors.green)
-		print("")
 	end
 end
 
@@ -42,22 +43,16 @@ function recalibrate()
 	screen.setTextColor(colors.white)
 	screen.clear()
 	screen.setCursorPos(1,3)
-	
 
 	write_center(getTime())
 	write_center(os.computerLabel())
 	print("")
 	write_center("Recalibrating")
 
-
-	os.sleep(1)
-	screen.setCursorPos(1,1)
-	screen.setBackgroundColor(colors.black)
-	screen.setTextColor(colors.white)
+	os.sleep(0.5)
 	screen.setTextScale(0.5)	
-	screen.clear()
-	paintScreen(0,0)
-
+	screen.setCursorPos(1,1)
+	screen.setTextColor(colors.white)
 	
   paintutils.drawFilledBox(1,1,9,4, colors.black)
 	screen.setCursorPos(1,1)
@@ -66,11 +61,25 @@ function recalibrate()
  	print("Monitor")
  	print("Detected")
  	os.sleep(1)
-
-
-
+ 	screen.setBackgroundColor(colors.purple)
+ 	screen.clear()
 end
 
+function fastprint(text, delay)
+    delay = delay or 0.02  -- Default delay between chunks
+    local chunkSize = 5    -- Characters to print at once
+    
+    -- Print in chunks and let print() handle wrapping
+    for i = 1, #text, chunkSize do
+        local chunk = text:sub(i, i + chunkSize - 1)
+        write(chunk)  -- Use write instead of print to avoid auto-newlines
+        
+        -- Small delay but skip if delay is 0
+        if delay > 0 then
+            sleep(delay)
+        end
+    end
+end
 
 function write_center(text)
   local x, y = term.getCursorPos()
@@ -83,6 +92,7 @@ end
 function print_center(text, bg)
   local x, y = term.getCursorPos()
   local width, height = term.getSize()
+
   term.setBackgroundColor(bg)
   term.setCursorPos(math.floor((width - #text) / 2) + 1, y)
   print(text)
@@ -157,10 +167,11 @@ function paintScreen(offsetX, offsetY)
 	local imgb = paintutils.loadImage("images/glowsteel-2.nfp")
 	local c = 0
 
+	term.setCursorPos(1,1)
 	-- 15x10 ?
 	for y = 1, h + 10, 10 do
-		for x = 1, w + 15, 15 do
-			if math.random(100) > 40 then
+		for x = 1, w + 16, 16 do
+			if math.random(100) > 50 then
 				paintutils.drawImage(imga, x - offsetX, y - offsetY)
 			else
 				paintutils.drawImage(imgb, x - offsetX, y - offsetY)
@@ -172,4 +183,4 @@ end
 
 local screen = getScreen()
 
-return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate }
+return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate, wordprint = wordprint }
