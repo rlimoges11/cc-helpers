@@ -4,14 +4,13 @@ function logger(msg, scheme)
 	end
 
 	if windows ~= nil then
-print("")
-		term.setTextColor(colors.black)
-		term.write(getTime())
-print("")
+		print("")
 		term.setTextColor(colors.lime)
+		term.write(getTime())
+		print("")
+		term.setTextColor(colors.green)
 		fastprint(msg, 0.02)
-print("")
-
+		print("")
 	else
 		term.setTextColor(colors.white)
 		term.write(getTime() .. " ")

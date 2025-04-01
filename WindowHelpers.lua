@@ -48,7 +48,7 @@ function openWindow(title, x, y, w, h, headerFG, headerBG, windowFG, windowBG, a
 		end
 		term.setTextColor(headerFG)
 		term.setBackgroundColor(headerBG)
-		print(title)
+		print(string.upper(title))
 		term.setCursorPos(x + w -2, y - 1)
 		print("\31\30 \120")
 	end

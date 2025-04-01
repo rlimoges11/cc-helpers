@@ -1,4 +1,11 @@
 local netModem = peripheral.find("modem", rednet.open)
-rednet.broadcast("Hello, world!")
 
-return { }
+
+function connect()
+	logger("Connecting")
+	os.sleep(1)
+	rednet.broadcast("Hello, world!")
+	os.sleep(1)
+end
+
+return { connect = connect}
