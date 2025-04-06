@@ -1,6 +1,6 @@
 function logger(msg, scheme) 
 	if scheme == nil then
-			scheme=""
+		scheme=""
 	end
 
 	if windows ~= nil then
@@ -11,6 +11,15 @@ function logger(msg, scheme)
 		term.setTextColor(colors.green)
 		fastprint(msg, 0.02)
 		print("")
+
+		local temp = term.current()
+		if temp ~= term.native() then
+			term.redirect(term.native())
+			print(getTime())
+			print(msg)
+			term.redirect(temp)
+		end
+
 	else
 		term.setTextColor(colors.white)
 		term.write(getTime() .. " ")
@@ -37,31 +46,33 @@ function display_clear(label)
 end
 
 function recalibrate()
-	screen.setTextScale(2)
-	screen.setBackgroundColor(colors.blue)
-	screen.setTextColor(colors.white)
-	screen.clear()
-	screen.setCursorPos(1,3)
+	if screen ~= nil then
+		screen.setTextScale(2)
+		screen.setBackgroundColor(colors.blue)
+		screen.setTextColor(colors.white)
+		screen.clear()
+		screen.setCursorPos(1,3)
 
-	write_center(getTime())
-	write_center(os.computerLabel())
-	print("")
-	write_center("Recalibrating")
+		write_center(getTime())
+		write_center(os.computerLabel())
+		print("")
+		write_center("Recalibrating")
 
-	os.sleep(0.5)
-	screen.setTextScale(0.5)	
-	screen.setCursorPos(1,1)
-	screen.setTextColor(colors.white)
-	
-  paintutils.drawFilledBox(1,1,9,4, colors.black)
-	screen.setCursorPos(1,1)
-	screen.setBackgroundColor(colors.black)
-	print(screen.getSize())
- 	print("Monitor")
- 	print("Detected")
- 	os.sleep(1)
- 	screen.setBackgroundColor(colors.purple)
- 	screen.clear()
+		os.sleep(1)
+		screen.setTextScale(0.5)	
+		screen.setCursorPos(1,1)
+		screen.setTextColor(colors.white)
+		
+	  	paintutils.drawFilledBox(1,1,9,4, colors.black)
+		screen.setCursorPos(1,1)
+		screen.setBackgroundColor(colors.black)
+		print(screen.getSize())
+	 	print("Monitor")
+	 	print("Detected")
+	 	os.sleep(1)
+	 	screen.setBackgroundColor(colors.black)
+	 	screen.clear()
+	 end
 end
 
 function fastprint(text, delay)
@@ -180,6 +191,25 @@ function paintScreen(offsetX, offsetY)
 	end
 end
 
+function paintImage(x, y, imagePath, offsetX, offsetY)
+
+	screen = getScreen()
+    while screen == nil do
+    	turtle.turnRight()
+    	screen = getScreen()
+    end
+    term.redirect(screen)
+	screen.setTextScale(0.5)
+	screen.setBackgroundColor(colors.blue)
+
+	local image = paintutils.loadImage(imagePath)
+	paintutils.drawImage(image, x + offsetX, y + offsetY)
+	term.redirect(term.native())
+	os.sleep(1)
+
+
+end
+
 local screen = getScreen()
 
-return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate, wordprint = wordprint }
+return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate, wordprint = wordprint, paintImage = paintImage }

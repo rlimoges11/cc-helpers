@@ -107,6 +107,8 @@ end
 function bringHome(steps)
 	turtle.turnRight()
 	gotoLaunchPad()
+	print("arrived")
+	launch()
 end
 
 function dropInventory()
@@ -158,15 +160,14 @@ end
 
 function IsLowOnFuel()
 	local fuelLevel = math.floor(turtle.getFuelLevel())
-	local monitor = peripheral.find("monitor") or print("No monitor attached")
+	local monitor = peripheral.find("monitor") or nil
 	
-	if(monitor) then
-		monitor.setTextScale(0.5)
-		monitor.clear()
-		monitor.setCursorPos(1,1)
+	if monitor ~= nil then
 		term.redirect(monitor)
-	
-		monitor.setTextColor(colors.lime)
+		term.setTextScale(0.5)
+		term.clear()
+		term.setCursorPos(1,1)
+		term.setTextColor(colors.lime)
 	end
 	logger(label)
 	
@@ -245,9 +246,6 @@ function gotoLaunchPad()
 		term.setTextColor(colors.red)
 		print("Missing Coordinates")
 	end
-	
-	
-
 
 	setLocation()
 	
@@ -263,21 +261,20 @@ function gotoLaunchPad()
 	correctYPosition()
 	
 	
-	turtle.turnRight()
-	turtle.forward()
+	
 
 	setLocation()
 	
 	launch()
-	
+
 end
 
 function correctYPosition()
-	while math.floor(LauncherCoordinates[2]) ~=  math.floor(yPos) do
-		if math.floor(LauncherCoordinates[2]) <  math.floor(yPos) and yPos < 70 then
+	while math.floor(LauncherCoordinates[2]) ~=  yPos do
+		if math.floor(LauncherCoordinates[2]) <  yPos then
 			turtle.down()
 			setLocation()
-		elseif math.floor(LauncherCoordinates[2]) >  math.floor(yPos) and yPos > 60 then
+		elseif math.floor(LauncherCoordinates[2]) >  yPos then
 			turtle.up()
 			setLocation()
 		else
@@ -287,12 +284,12 @@ function correctYPosition()
 end
 
 function correctZPosition()
-	while math.floor(LauncherCoordinates[3]) ~=  math.floor(zPos) do
+	while math.floor(LauncherCoordinates[3]) ~=  zPos do
 		getLocation()
-		if math.floor(LauncherCoordinates[3]) <  math.floor(zPos) then
+		if math.floor(LauncherCoordinates[3]) <  zPos then
 			turtle.forward()
 			setLocation()
-		elseif math.floor(LauncherCoordinates[3]) >  math.floor(zPos)then
+		elseif math.floor(LauncherCoordinates[3]) > zPos then
 			turtle.back()
 			setLocation()
 		else
@@ -302,12 +299,12 @@ function correctZPosition()
 end
 
 function correctXPosition()
-	while math.floor(LauncherCoordinates[1]) ~=  math.floor(xPos) do
+	while math.floor(LauncherCoordinates[1]) ~=  xPos do
 		getLocation()
-		if math.floor(LauncherCoordinates[1]) <  math.floor(xPos) then
+		if math.floor(LauncherCoordinates[1]) <  xPos then
 			turtle.back()
 			setLocation()
-		elseif math.floor(LauncherCoordinates[1]) >  math.floor(xPos) then
+		elseif math.floor(LauncherCoordinates[1]) >  xPos then
 			turtle.forward()
 			setLocation()
 		else
@@ -329,7 +326,24 @@ end
 function setLocation()
 	xOld, yOld, zOld = xPos, yPos, zPos
 	xPos, yPos, zPos = gps.locate()
-	cal = true
+
+	if xPos ~= nil and yPos ~= nil and zPos ~= nil then
+		xPos = math.floor(xPos)
+		yPos = math.floor(yPos)
+		zPos = math.floor(zPos)
+	else
+		xOld, yOld, zOld = xPos, yPos, zPos
+	end
+
+	if xPos == nil then
+		xPos = 0
+	end
+	if yPos == nil then
+		yPos = 0
+	end
+	if zPos == nil then
+		zPos = 0
+	end
 end
 
 function manSetLocation(x, y, z)
@@ -340,11 +354,7 @@ function manSetLocation(x, y, z)
 end
 
 function getLocation()
-	if xPos ~= nil then
-		return xPos, yPos, zPos
-	else
-		return nil
-	end
+	return xPos, yPos, zPos
 end
  
 function jump() -- perform a jump. useless? yup!
@@ -352,13 +362,11 @@ function jump() -- perform a jump. useless? yup!
 	turtle.down()
 end
 
-
 function flyToY(newY)
 	setLocation()
-
-	while newY ~=  math.floor(yPos) do
+	while newY ~=  yPos do
 		getLocation()
-		if newY <  math.floor(yPos) then
+		if newY <  yPos then
 			turtle.down()
 			setLocation()
 
@@ -368,7 +376,7 @@ function flyToY(newY)
 				turtle.down()
 				setLocation()
 			end
-		elseif newY >  math.floor(yPos)  then
+		elseif newY > yPos then
 			turtle.up()
 			setLocation()
 
@@ -378,7 +386,66 @@ function flyToY(newY)
 				turtle.down()
 				setLocation()
 			end
+		else
+			return
+		end
+	end
+end
 
+function flyToX(newX)
+	setLocation()
+	while newX ~= xPos do
+		getLocation()
+		if newX < xPos then
+			turtle.back()
+			setLocation()
+
+			-- stuck
+			while(xOld == xPos) do
+				turtle.up()
+				turtle.forward()
+				setLocation()
+			end
+		elseif newX > xPos then
+			turtle.forward()
+			setLocation()
+
+			-- stuck
+			while(xOld == XPos) do
+				turtle.down()
+				turtle.back()
+				setLocation()
+			end
+		else
+			return
+		end
+	end
+end
+
+function flyToZ(newZ)
+	setLocation()
+	while newZ ~= zPos do
+		getLocation()
+		if newZ < zPos then
+			turtle.back()
+			setLocation()
+
+			-- stuck
+			while(zOld == zPos) do
+				turtle.up()
+				turtle.forward()
+				setLocation()
+			end
+		elseif newZ > zPos then
+			turtle.forward()
+			setLocation()
+
+			-- stuck
+			while(zOld == ZPos) do
+				turtle.down()
+				turtle.back()
+				setLocation()
+			end
 		else
 			return
 		end
@@ -388,12 +455,14 @@ end
 function printLocation()
 	getLocation()
 	setLocation()
-
-	logger ("" .. math.floor(xPos) .. "," .. math.floor(yPos) .. "," .. math.floor(zPos))
+	if xPos ~= nil and yPos ~= nil and zPos ~= nil then
+		logger ("" .. xPos .. "," .. yPos .. "," .. zPos)
+	end
 
 end
 
 function getFacing()
+	getLocation()
 	while xOld >= xPos do
 		getLocation()
 		print (xOld .. " " .. xPos)
@@ -401,14 +470,13 @@ function getFacing()
 		turtle.forward()
 		setLocation()
 	end
-	
-	gotoLaunchPad()
 end
 
 function launch()
 	-- Docked, check Fuel and harvest
-	state = "Fueling"
-	IsLowOnFuel()
+	print("launched")
+	state = "Scanning"
+	recalibrate()
 end
 
 function initTurtle() 
@@ -427,12 +495,17 @@ function initTurtle()
 	local y = (LauncherCoordinates[2])
 	local z = (LauncherCoordinates[3])
 
-	if(xPos == LauncherCoordinates[1] and yPos == LauncherCoordinates[2] and zPos == LauncherCoordinates[3] )  then
-		launch()
-	else
-		flyToY(69)
-		getFacing()
-	end
+	launch()
 end
 
+function flyTo(x,y,z)
+	flyToY(y)
+	getFacing()
+	flyToY(y)
+	flyToX(x)
+	turtle.turnRight()
+	flyToZ(z)
+
+	setLocation()
+end
 
