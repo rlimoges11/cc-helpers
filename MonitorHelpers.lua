@@ -3,7 +3,8 @@ function logger(msg, scheme)
 		scheme=""
 	end
 
-	if windows ~= nil then
+	if logs ~= nil then
+		term.redirect(logs)
 		print("")
 		term.setTextColor(colors.lime)
 		term.write(getTime())
@@ -19,6 +20,7 @@ function logger(msg, scheme)
 			print(msg)
 			term.redirect(temp)
 		end
+		term.redirect(term.native())
 
 	else
 		term.setTextColor(colors.white)
@@ -110,6 +112,10 @@ function print_center(text, bg)
 
 end
 
+function isInBounds(x, y, x1, y1, x2, y2)
+    return x >= x1 and x <= x2 and y >= y1 and y <= y2
+end
+
 function getTime()
 	return tostring(textutils.formatTime(os.time("local"), true))
 end 
@@ -167,7 +173,7 @@ end
 
 
 function getScreen()
-	screen = peripheral.find("monitor") or nil
+	screen = peripheral.find("monitor") or term.native()
 	return screen
 end
 
@@ -192,7 +198,6 @@ function paintScreen(offsetX, offsetY)
 end
 
 function paintImage(x, y, imagePath, offsetX, offsetY)
-
 	screen = getScreen()
     while screen == nil do
     	turtle.turnRight()
@@ -211,5 +216,7 @@ function paintImage(x, y, imagePath, offsetX, offsetY)
 end
 
 local screen = getScreen()
+local screenWidth, screenHeight = screen.getSize()
+local frame = nil
 
-return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate, wordprint = wordprint, paintImage = paintImage }
+return { reset = reset, write_center = write_center, print_center = print_center, display_clear = display_clear, writeTime = writeTime, recalibrate = recalibrate, wordprint = wordprint, paintImage = paintImage, getTime = getTime, isInBounds = isInBounds, screenWidth = screenWidth, screenHeight = screenHeight }
